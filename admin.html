@@ -1,0 +1,300 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Admin Dashboard - Thiranex</title>
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="admin.css">
+</head>
+<body>
+  <!-- Technological Background -->
+  <div class="glow-bg"></div>
+  
+  <!-- Login Security Panel -->
+  <main class="registration-card login-card" id="login-panel">
+    <div style="text-align: center; margin-bottom: 2rem;">
+      <img src="thiranexlogo.png" alt="Thiranex Logo" style="max-height: 60px;">
+    </div>
+    <div class="step-title-container" style="text-align: center;">
+      <h2 class="step-title">Authentication</h2>
+      <p class="step-desc">Sign in to your Firebase account.</p>
+    </div>
+    <div class="form-group">
+      <label class="form-label">Email Address</label>
+      <input type="email" id="admin-email" class="form-control" placeholder="admin@thiranex.com">
+    </div>
+    <div class="form-group">
+      <label class="form-label">Password</label>
+      <input type="password" id="admin-password" class="form-control" placeholder="••••••••">
+    </div>
+    <button class="btn btn-primary" style="width: 100%; margin-top: 1rem;" id="btn-login">Login to Dashboard</button>
+  </main>
+
+  <!-- Dashboard Layout -->
+  <div class="dashboard-layout" id="dashboard-panel" style="display: none;">
+    
+    <!-- Sidebar Navigation -->
+    <aside class="sidebar">
+      <div class="sidebar-header">
+        <img src="thiranexlogo.png" alt="Thiranex Logo" class="sidebar-logo">
+      </div>
+      <nav class="sidebar-nav">
+        <a href="#" class="nav-link active" data-target="view-overview">
+          <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2V6zM14 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2V6zM4 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2v-2zM14 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2v-2z" /></svg>
+          Overview Dashboard
+        </a>
+        <a href="#" class="nav-link" data-target="view-leads">
+          <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z" /></svg>
+          Hot Leads
+          <span class="nav-badge nav-badge-warning" id="badge-leads">0</span>
+        </a>
+        <a href="#" class="nav-link" data-target="view-pending">
+          <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>
+          Pending Verifications
+          <span class="nav-badge nav-badge-warning" id="badge-pending">0</span>
+        </a>
+        <a href="#" class="nav-link" data-target="view-approved">
+          <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>
+          Verified / Approved
+          <span class="nav-badge nav-badge-success" id="badge-approved">0</span>
+        </a>
+        <a href="#" class="nav-link" data-target="view-settings">
+          <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z" /><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" /></svg>
+          Payment Settings
+        </a>
+        <a href="#" class="nav-link" data-target="view-team">
+          <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z" /></svg>
+          Team Access
+        </a>
+      </nav>
+      <div style="padding: 1rem; border-top: 1px solid var(--border); display: flex; flex-direction: column; gap: 0.5rem;">
+        <button class="btn btn-secondary" style="width: 100%;" id="btn-refresh">Refresh Data</button>
+        <button class="btn btn-danger" style="width: 100%; background: #ef4444; color: white; border: none;" id="btn-logout">Logout</button>
+      </div>
+    </aside>
+
+    <!-- Main Content Area -->
+    <main class="main-content">
+      
+      <!-- VIEW: OVERVIEW -->
+      <section class="dashboard-view active" id="view-overview">
+        <div class="view-header">
+          <h2>Dashboard Overview</h2>
+          <p>Real-time registration metrics.</p>
+        </div>
+        
+        <div class="metric-grid">
+          <div class="metric-card">
+            <div class="metric-title">Total Registrations</div>
+            <div class="metric-value" id="metric-total">0</div>
+          </div>
+          <div class="metric-card metric-warning">
+            <div class="metric-title">Pending Verifications</div>
+            <div class="metric-value" id="metric-pending">0</div>
+          </div>
+          <div class="metric-card metric-success">
+            <div class="metric-title">Approved Interns</div>
+            <div class="metric-value" id="metric-approved">0</div>
+          </div>
+          <div class="metric-card" style="border-left-color: var(--secondary);">
+            <div class="metric-title">Revenue Generated</div>
+            <div class="metric-value" id="metric-revenue" style="color: var(--secondary);">₹0</div>
+          </div>
+        </div>
+      </section>
+
+      </section>
+
+      <!-- VIEW: LEADS -->
+      <section class="dashboard-view" id="view-leads">
+        <div class="view-header" style="display: flex; justify-content: space-between; align-items: flex-start;">
+          <div>
+            <h2>Hot Leads</h2>
+            <p>Upload cold leads here. All telecallers will have access to call them.</p>
+          </div>
+          <div style="text-align: right;">
+            <a href="sample_leads.csv" download class="btn-sm" style="display: block; margin-bottom: 0.5rem; text-decoration: none; color: var(--primary);">Download Sample CSV</a>
+            <input type="file" id="csv-upload-file" accept=".csv" style="display: none;">
+            <button class="btn btn-primary" id="btn-upload-csv" onclick="document.getElementById('csv-upload-file').click()">+ Upload CSV Leads</button>
+          </div>
+        </div>
+        <div class="admin-card">
+          <div class="table-responsive">
+            <table class="admin-table">
+              <thead>
+                <tr>
+                  <th>Reg ID</th>
+                  <th>Participant</th>
+                  <th>Phone</th>
+                  <th>Domain</th>
+                  <th>Actions</th>
+                </tr>
+              </thead>
+              <tbody id="table-leads">
+                <!-- Data dynamically populated here -->
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </section>
+
+      <!-- VIEW: PENDING -->
+      <section class="dashboard-view" id="view-pending">
+        <div class="view-header">
+          <h2>Pending Verifications</h2>
+          <p>Review payment receipts and dispatch confirmations for registered students.</p>
+        </div>
+        <div class="admin-card">
+          <div class="table-responsive">
+            <table class="admin-table">
+              <thead>
+                <tr>
+                  <th>Reg ID</th>
+                  <th>Participant</th>
+                  <th>Phone</th>
+                  <th>Domain</th>
+                  <th>Payment UTR</th>
+                  <th>Actions</th>
+                </tr>
+              </thead>
+              <tbody id="table-pending">
+                <!-- Data dynamically populated here -->
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </section>
+
+      <!-- VIEW: APPROVED -->
+      <section class="dashboard-view" id="view-approved">
+        <div class="view-header" style="display: flex; justify-content: space-between; align-items: flex-start;">
+          <div>
+            <h2>Verified / Approved</h2>
+            <p>Participants who have successfully paid and received confirmation.</p>
+          </div>
+          <button class="btn-report" id="btn-export-csv">
+            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+            </svg>
+            Generate CSV Report
+          </button>
+        </div>
+        <div class="admin-card">
+          <div class="table-responsive">
+            <table class="admin-table">
+              <thead>
+                <tr>
+                  <th>Reg ID</th>
+                  <th>Participant</th>
+                  <th>Phone</th>
+                  <th>Domain</th>
+                  <th>Payment UTR</th>
+                  <th>Actions</th>
+                </tr>
+              </thead>
+              <tbody id="table-approved">
+                <!-- Data dynamically populated here -->
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </section>
+
+      <!-- VIEW: SETTINGS -->
+      <section class="dashboard-view" id="view-settings">
+        <div class="view-header">
+          <h2>Payment Configuration</h2>
+          <p>Update the global UPI ID and Registration Fee.</p>
+        </div>
+        <div class="admin-card" style="max-width: 600px;">
+          <div class="form-group">
+            <label class="form-label">Payment UPI ID</label>
+            <input type="text" id="setting-upi" class="form-control" placeholder="e.g. thiranix@ybl">
+          </div>
+          <div class="form-group">
+            <label class="form-label">Fee Amount (₹)</label>
+            <input type="number" id="setting-amount" class="form-control" placeholder="e.g. 299">
+          </div>
+          <div class="form-group" style="margin-top: 2rem;">
+            <button class="btn btn-primary" id="btn-save-settings">Save Configuration</button>
+          </div>
+        </div>
+      </section>
+
+      <!-- VIEW: TEAM ACCESS -->
+      <section id="view-team" class="dashboard-view">
+        <div class="view-header">
+          <h2 style="font-family: 'Outfit', sans-serif; color: var(--primary); font-size: 1.8rem; margin: 0;">Team Access</h2>
+          <p style="color: var(--text-muted); margin: 0.5rem 0 0 0;">Manage roles and permissions for your staff.</p>
+        </div>
+        
+        <div class="admin-card" style="margin-bottom: 2rem; max-width: 600px;">
+          <h3 style="margin-top: 0;">Create New User</h3>
+          <div class="form-group">
+            <label class="form-label">Full Name</label>
+            <input type="text" id="new-user-name" class="form-control" placeholder="e.g. Sarah Smith">
+          </div>
+          <div class="form-group">
+            <label class="form-label">Email Address</label>
+            <input type="email" id="new-user-email" class="form-control" placeholder="user@thiranex.com">
+          </div>
+          <div class="form-group">
+            <label class="form-label">Temporary Password</label>
+            <input type="password" id="new-user-password" class="form-control" placeholder="Enter secure password">
+          </div>
+          <div class="form-group">
+            <label class="form-label">Role</label>
+            <select id="new-user-role" class="form-control">
+              <option value="telecaller">Telecaller (Read-Only)</option>
+              <option value="admin">Admin (Full Access)</option>
+            </select>
+          </div>
+          <button class="btn btn-primary" id="btn-create-user">Create Account</button>
+        </div>
+
+        <div class="admin-card">
+          <div class="table-responsive">
+            <table class="admin-table">
+              <thead>
+                <tr>
+                  <th>Name</th>
+                  <th>Email</th>
+                  <th>Role</th>
+                  <th>System UID</th>
+                </tr>
+              </thead>
+              <tbody id="table-users">
+                <!-- Users populated here -->
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </section>
+
+    </main>
+
+
+
+    <!-- Loading State Overlay -->
+    <div class="processing-overlay" id="admin-loading" style="border-radius: var(--radius-lg);">
+      <div class="spinner-container">
+        <div class="spinner-outer"></div>
+      </div>
+      <h3 class="processing-title" id="admin-loading-text">Loading Records...</h3>
+    </div>
+  </div>
+
+  <!-- Firebase Compat Scripts -->
+  <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-auth-compat.js"></script>
+  
+  <!-- EmailJS for sending emails client-side -->
+  <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
+
+  <!-- App Scripts -->
+  <script src="firebase-config.js"></script>
+  <script src="admin.js"></script>
+</body>
+</html>
