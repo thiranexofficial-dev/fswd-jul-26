@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Telecaller Dashboard | Thiranex</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Outfit:wght@500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="admin.css">
+</head>
+<body class="admin-body">
+
+  <!-- LOADING OVERLAY -->
+  <div class="processing-overlay" id="telecaller-loading">
+    <div class="spinner-container">
+      <div class="spinner-outer"></div>
+    </div>
+    <div class="processing-title" id="telecaller-loading-text">Syncing Records...</div>
+  </div>
+
+  <!-- LOGIN PANEL -->
+  <main class="registration-card login-card" id="login-panel">
+    <div style="text-align: center; margin-bottom: 2rem;">
+      <img src="thiranexlogo.png" alt="Thiranex Logo" style="max-height: 60px;">
+    </div>
+    <div class="step-title-container" style="text-align: center;">
+      <h2 class="step-title">Telecaller Portal</h2>
+      <p class="step-desc">Sign in to your Firebase account.</p>
+    </div>
+    <div class="form-group">
+      <label class="form-label">Email Address</label>
+      <input type="email" id="telecaller-email" class="form-control" placeholder="telecaller@thiranex.com">
+    </div>
+    <div class="form-group">
+      <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.5rem;">
+        <label class="form-label" style="margin-bottom: 0;">Password</label>
+        <a href="#" id="btn-forgot-password" style="font-size: 0.8rem; color: var(--primary); text-decoration: none; font-weight: 500;">Forgot Password?</a>
+      </div>
+      <input type="password" id="telecaller-password" class="form-control" placeholder="••••••••">
+    </div>
+    <button class="btn btn-primary" style="width: 100%; margin-top: 1rem;" id="btn-login">Login to Portal</button>
+  </main>
+
+  <!-- DASHBOARD PANEL -->
+  <div class="dashboard-layout" id="dashboard-panel" style="display: none;">
+    
+    <!-- SIDEBAR -->
+    <aside class="sidebar">
+      <div class="sidebar-header">
+        <img src="thiranexlogo.png" alt="Thiranex Logo" style="max-height: 40px; margin-right: 10px;">
+        <span style="font-family: 'Outfit', sans-serif; font-weight: 700; font-size: 1.2rem; color: var(--primary);">Telecaller</span>
+      </div>
+      <nav class="sidebar-nav">
+        <a href="#" class="nav-link active" id="nav-dashboard" onclick="window.switchTab('dashboard')">Leads Queue</a>
+        <a href="#" class="nav-link" id="nav-followups" onclick="window.switchTab('followups')">Interested <span class="nav-badge nav-badge-warning" id="badge-followups">0</span></a>
+        <a href="#" class="nav-link" id="nav-rejected" onclick="window.switchTab('rejected')">Not Interested</a>
+        <a href="#" class="nav-link" id="nav-pending" onclick="window.switchTab('pending')">Pending Payment</a>
+        <a href="#" class="nav-link" id="nav-sales" onclick="window.switchTab('sales')">My Sales</a>
+      </nav>
+      <div style="padding: 1.5rem; border-top: 1px solid var(--border); display: flex; flex-direction: column; gap: 0.5rem;">
+        <button class="btn btn-primary" style="width: 100%;" id="btn-copy-link">Copy My Link</button>
+        <button class="btn btn-secondary" style="width: 100%;" id="btn-refresh">Refresh Data</button>
+        <button class="btn btn-danger" style="width: 100%; background: #ef4444; color: white; border: none;" id="btn-logout">Logout</button>
+      </div>
+    </aside>
+
+    <!-- MAIN CONTENT -->
+    <main class="main-content">
+      
+      <!-- UNIFIED DASHBOARD VIEW -->
+      <section class="dashboard-view active" style="display: flex; flex-direction: column; gap: 2rem;">
+        
+        <!-- GREETING -->
+        <div style="margin-bottom: -1rem; margin-top: 0.5rem;">
+          <h2 style="font-size: 1.5rem; color: var(--text-dark); margin: 0;">Welcome back, <span id="telecaller-name-display" style="color: var(--primary);">Telecaller</span>! 👋</h2>
+        </div>
+
+        <!-- METRICS ROW -->
+        <div class="metric-grid" style="grid-template-columns: repeat(3, 1fr);">
+          <div class="metric-card" style="padding: 1.5rem; background: rgba(59, 130, 246, 0.05); border-color: rgba(59, 130, 246, 0.2);">
+            <div class="metric-title" style="color: #3b82f6;">Leads</div>
+            <div class="metric-value" id="metric-hot" style="color: #3b82f6;">0</div>
+          </div>
+          <div class="metric-card metric-warning" style="padding: 1.5rem;">
+            <div class="metric-title">Pending Payment</div>
+            <div class="metric-value" id="metric-pending">0</div>
+          </div>
+          <div class="metric-card metric-success" style="padding: 1.5rem;">
+            <div class="metric-title">My Sales (Approved)</div>
+            <div class="metric-value" id="metric-sales">0</div>
+          </div>
+        </div>
+
+        <!-- SEARCH CONTROLS -->
+        <div style="display: flex; gap: 1rem; align-items: center; background: white; padding: 1.5rem; border-radius: var(--radius-md); border: 1px solid var(--border);">
+          <input type="text" id="search-input" class="form-control" placeholder="Search by name, email, or phone..." style="flex: 1; margin: 0;">
+        </div>
+
+        <!-- LEADS TABLE -->
+        <div class="view-header" style="display: flex; justify-content: space-between; align-items: flex-end;">
+          <div>
+            <h2 id="view-title">Leads Queue</h2>
+            <p>Welcome back! Here's your lead pipeline.</p>
+          </div>
+        </div>
+        <div class="admin-card" style="margin-top: 0; padding: 0; overflow: hidden;">
+          <div class="table-responsive">
+            <table class="admin-table">
+              <thead style="background: var(--bg-light);">
+                <tr>
+                  <th>Reg ID</th>
+                  <th>Student Info</th>
+                  <th>Phone Number</th>
+                  <th>Status & Follow-up</th>
+                  <th>Action</th>
+                </tr>
+              </thead>
+              <tbody id="table-leads">
+                <!-- Data dynamically populated here -->
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </section>
+
+    </main>
+  </div>
+
+  <!-- Forgot Password Modal -->
+  <div id="forgot-password-modal" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(15, 23, 42, 0.6); backdrop-filter: blur(4px); z-index: 1000; align-items: center; justify-content: center;">
+    <div class="registration-card" style="margin: 0; width: 90%; max-width: 400px; padding: 2rem; border: 1px solid rgba(255,255,255,0.2);">
+      <h3 style="margin-bottom: 0.5rem; color: var(--text-dark); font-family: var(--font-title);">Reset Password</h3>
+      <p style="font-size: 0.85rem; color: var(--text-muted); margin-bottom: 1.5rem; line-height: 1.4;">Enter your registered telecaller email address to receive a secure password reset link.</p>
+      
+      <div class="form-group">
+        <label class="form-label">Email Address</label>
+        <input type="email" id="reset-email-input" class="form-control" placeholder="telecaller@thiranex.com">
+      </div>
+      
+      <div style="display: flex; gap: 0.75rem; margin-top: 1.5rem;">
+        <button class="btn btn-secondary" style="flex: 1;" id="btn-cancel-reset">Cancel</button>
+        <button class="btn btn-primary" style="flex: 1;" id="btn-submit-reset">Reset Password</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Reset Success Modal -->
+  <div id="reset-success-modal" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(15, 23, 42, 0.6); backdrop-filter: blur(4px); z-index: 1001; align-items: center; justify-content: center;">
+    <div class="registration-card" style="margin: 0; width: 90%; max-width: 400px; padding: 2rem; border: 1px solid rgba(255,255,255,0.2); text-align: center;">
+      <div style="width: 50px; height: 50px; background: #d1fae5; color: #10b981; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 1rem auto;">
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+        </svg>
+      </div>
+      <h3 style="margin-bottom: 1rem; color: var(--text-dark); font-family: var(--font-title);">Reset Link Sent</h3>
+      <p style="font-size: 0.9rem; color: var(--text-muted); margin-bottom: 1.5rem; line-height: 1.5; font-weight: 500;">
+        A secure password reset link has been sent to your email address. If you do not see it in your primary inbox within a few minutes, please remember to check your junk or spam folder.
+      </p>
+      <button class="btn btn-primary" style="width: 100%;" onclick="document.getElementById('reset-success-modal').style.display='none'">Got it</button>
+    </div>
+  </div>
+  <!-- Firebase Compat Scripts -->
+  <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-auth-compat.js"></script>
+  
+  <!-- App Scripts -->
+  <script src="firebase-config.js"></script>
+  <script src="telecaller.js"></script>
+</body>
+</html>
